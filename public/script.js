@@ -19,7 +19,21 @@ document.addEventListener('DOMContentLoaded', () => {
     .style('max-width', '350px')
     .style('z-index', '1000')
     .style('box-shadow', '0 4px 8px rgba(0, 0, 0, 0.3)')
-    .style('line-height', '1.4');
+    .style('line-height', '1.4')
+    .on('mouseover', function() {
+      // Clear timeout when hovering over tooltip
+      if (window.tooltipTimeout) {
+        clearTimeout(window.tooltipTimeout);
+      }
+    })
+    .on('mouseout', function() {
+      // Hide tooltip when leaving tooltip area
+      window.tooltipTimeout = setTimeout(() => {
+        tooltip.transition()
+          .duration(500)
+          .style('opacity', 0);
+      }, 300);
+    });
 
   d3.json('/data')
     .then(data => {
@@ -50,6 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
         .attr('fill', 'steelblue')
         .style('cursor', 'pointer')
         .on('mouseover', function(event, d) {
+          // Clear any existing hide timeout
+          if (window.tooltipTimeout) {
+            clearTimeout(window.tooltipTimeout);
+          }
+
           // Highlight the circle
           d3.select(this)
             .attr('r', 8)
@@ -90,10 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
             .attr('r', 5)
             .attr('fill', 'steelblue');
 
-          // Hide tooltip
-          tooltip.transition()
-            .duration(500)
-            .style('opacity', 0);
+          // Set a timeout to hide tooltip after a delay
+          window.tooltipTimeout = setTimeout(() => {
+            tooltip.transition()
+              .duration(500)
+              .style('opacity', 0);
+          }, 300); // 300ms delay before hiding
         })
         .on('click', function(event, d) {
           // Optional: You can add click functionality here

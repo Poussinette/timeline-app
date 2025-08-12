@@ -126,6 +126,8 @@ timeline-app/
   - **📜 Quran Verse Links**: Direct links to related verses on Quran.com (light green color)
   - **📚 Tafseer Links**: Direct links to commentary on Archive.org (light purple color)
   - **External Navigation**: All links open in new tabs for seamless browsing
+  - **Enhanced UX**: Tooltips stay visible when hovering over them, allowing easy link clicking
+  - **Smart Timing**: 300ms delay before hiding tooltips to improve usability
 - **Responsive Design**: Adapts to different screen sizes
 - **Smooth Animations**: Elegant fade-in/fade-out transitions (200ms in, 500ms out)
 - **Smart Positioning**: Tooltips position themselves near the cursor to avoid screen edges
