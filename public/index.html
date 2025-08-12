@@ -1,131 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Historical Timeline</title>
+  <title>Islamic Historical Timeline</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 20px;
+      background-color: #f8f9fa;
     }
+    
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+    }
+    
+    .timeline-container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 1000px;
+    }
+    
+    .tooltip {
+      pointer-events: auto !important;
+    }
+    
+    .tooltip a {
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .tooltip a:hover {
+      text-decoration: underline;
+    }
+    
+    .instructions {
+      text-align: center;
+      color: #666;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    
     .timeline-event {
       cursor: pointer;
+      transition: all 0.3s ease;
     }
+    
     .timeline-event:hover {
       fill: orange;
     }
   </style>
 </head>
 <body>
-  <h1>Historical Timeline</h1>
-  <div id="timeline"></div>
+  <h1>🕌 Islamic Historical Timeline</h1>
+  <div class="instructions">
+    Hover over the data points to view related Hadith, Quran verses, and Tafseer links
+  </div>
+  <div class="timeline-container">
+    <div id="timeline"></div>
+  </div>
   
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const svg = d3.select('#timeline')
-        .append('svg')
-        .attr('width', 900)
-        .attr('height', 600);
-
-      d3.json('/data')
-        .then(data => {
-          console.log('Data loaded:', data);
-          
-          // Parse dates
-          const parseDate = d3.timeParse('%Y');
-          data.forEach(d => {
-            d.year = +d.year; // Convert year to number
-            d.date = parseDate(d.year.toString());
-          });
-
-          // Set up scales
-          const xScale = d3.scaleTime()
-            .domain(d3.extent(data, d => d.date))
-            .range([100, 800]);
-
-          const yScale = d3.scaleLinear()
-            .domain([0, data.length])
-            .range([100, 500]);
-
-          // Create timeline elements
-          svg.selectAll('circle')
-            .data(data)
-            .enter()
-            .append('circle')
-            .attr('class', 'timeline-event')
-            .attr('cx', d => xScale(d.date))
-            .attr('cy', (d, i) => yScale(i))
-            .attr('r', 6)
-            .attr('fill', 'steelblue')
-            .on('mouseover', function(event, d) {
-              d3.select(this).attr('r', 8);
-              
-              // Show tooltip
-              const tooltip = svg.append('g')
-                .attr('id', 'tooltip')
-                .attr('transform', `translate(${xScale(d.date)}, ${yScale(data.indexOf(d)) - 20})`);
-              
-              const rect = tooltip.append('rect')
-                .attr('x', -50)
-                .attr('y', -30)
-                .attr('width', 100)
-                .attr('height', 25)
-                .attr('fill', 'black')
-                .attr('opacity', 0.8)
-                .attr('rx', 3);
-              
-              tooltip.append('text')
-                .attr('text-anchor', 'middle')
-                .attr('y', -10)
-                .attr('fill', 'white')
-                .attr('font-size', '12px')
-                .text(d.event);
-            })
-            .on('mouseout', function(event, d) {
-              d3.select(this).attr('r', 6);
-              svg.select('#tooltip').remove();
-            });
-
-          // Add event labels
-          svg.selectAll('.event-label')
-            .data(data)
-            .enter()
-            .append('text')
-            .attr('class', 'event-label')
-            .attr('x', d => xScale(d.date))
-            .attr('y', (d, i) => yScale(i) - 15)
-            .text(d => d.event)
-            .attr('text-anchor', 'middle')
-            .attr('font-size', '10px')
-            .attr('fill', '#333');
-
-          // Add year labels
-          svg.selectAll('.year-label')
-            .data(data)
-            .enter()
-            .append('text')
-            .attr('class', 'year-label')
-            .attr('x', d => xScale(d.date))
-            .attr('y', (d, i) => yScale(i) + 20)
-            .text(d => d.year)
-            .attr('text-anchor', 'middle')
-            .attr('font-size', '12px')
-            .attr('font-weight', 'bold')
-            .attr('fill', '#666');
-
-          // Add axis
-          const xAxis = d3.axisBottom(xScale)
-            .tickFormat(d3.timeFormat('%Y'));
-          
-          svg.append('g')
-            .attr('transform', 'translate(0, 520)')
-            .call(xAxis);
-        })
-        .catch(error => {
-          console.error('Error loading data:', error);
-          document.getElementById('timeline').innerHTML = '<p>Error loading timeline data. Please check the console for details.</p>';
-        });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
