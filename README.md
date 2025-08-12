@@ -1,14 +1,16 @@
-# Historical Timeline Visualization Web App
+# 🕌 Islamic Historical Timeline Web App
 
-A web application that visualizes historical events from a CSV file using an interactive timeline built with D3.js and Express.js.
+A web application that visualizes Islamic historical events from a CSV file using an interactive timeline built with D3.js and Express.js. Features rich tooltips with links to Hadith, Quran verses, and Tafseer commentary.
 
 ## 🌟 Features
 
 - **Interactive Timeline**: Visual representation of historical events with chronological positioning
-- **Hover Effects**: Events change color and size when hovered, with informative tooltips
+- **Rich Hover Tooltips**: Detailed tooltips with event information and scholarly resource links
+- **Islamic Resource Integration**: Direct links to Hadith (Sunnah.com), Quran verses (Quran.com), and Tafseer commentary
 - **CSV Data Integration**: Automatically reads and parses historical data from local CSV files
-- **Responsive Design**: Clean, professional interface that works across different screen sizes
+- **Responsive Design**: Clean, professional interface with Islamic theming
 - **Real-time Data Loading**: Server-side CSV processing with client-side visualization
+- **Smooth Animations**: Elegant fade-in/fade-out transitions for enhanced user experience
 
 ## 📋 Prerequisites
 
@@ -72,13 +74,15 @@ The included CSV file contains Islamic historical events:
 
 ```
 timeline-app/
-├── server.js                          # Express.js server
-├── package.json                       # Node.js dependencies
-├── README.md                          # This documentation
-├── Subset1021bfe424952e806cab8ed7411a4cae38.csv  # Historical data
+├── server.js                          # Express.js server with CSV parsing
+├── package.json                       # Node.js dependencies and scripts
+├── package-lock.json                  # Dependency lock file
+├── README.md                          # This comprehensive documentation
+├── .gitignore                         # Git ignore file (excludes node_modules)
+├── Subset1021bfe424952e806cab8ed7411a4cae38.csv  # Islamic historical events data
 └── public/
-    ├── index.html                     # Main web page
-    └── script.js                      # D3.js visualization (legacy)
+    ├── index.html                     # Main web page with Islamic theming
+    └── script.js                      # D3.js visualization with interactive tooltips
 ```
 
 ## 🔧 Technical Details
@@ -114,10 +118,32 @@ timeline-app/
 ### Interactive Features
 - **Hover Effects**: 
   - Color changes from blue to orange
-  - Circle size increases
-  - Tooltip appears with event details
+  - Circle size increases from 5px to 8px radius
+  - Rich tooltip appears with comprehensive event details
+- **Interactive Tooltips**:
+  - **Event Information**: Event name, year, and historical notes
+  - **📖 Hadith Links**: Direct links to related Hadith on Sunnah.com (light blue color)
+  - **📜 Quran Verse Links**: Direct links to related verses on Quran.com (light green color)
+  - **📚 Tafseer Links**: Direct links to commentary on Archive.org (light purple color)
+  - **External Navigation**: All links open in new tabs for seamless browsing
 - **Responsive Design**: Adapts to different screen sizes
-- **Smooth Animations**: CSS transitions for visual feedback
+- **Smooth Animations**: Elegant fade-in/fade-out transitions (200ms in, 500ms out)
+- **Smart Positioning**: Tooltips position themselves near the cursor to avoid screen edges
+
+## 🎓 Educational Features
+
+### Islamic Scholarly Resources
+The application provides direct access to authentic Islamic sources:
+
+- **Hadith Collections**: Links to Sahih Bukhari and other collections on Sunnah.com
+- **Quran References**: Direct verse links to Quran.com with translations
+- **Tafseer Commentary**: Access to Ibn Kathir's Tafseer and other scholarly works
+
+### User Experience
+- **Intuitive Navigation**: Simply hover over any historical event to access resources
+- **Visual Feedback**: Color-coded links for easy identification of resource types
+- **Educational Context**: Each event includes historical notes and context
+- **Seamless Learning**: External links preserve your place in the timeline
 
 ## 🛠️ Customization
 
